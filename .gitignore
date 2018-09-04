@@ -1,6 +1,7 @@
 # Build
 .next
 .DS_Store
+out
 
 # Dependencies
 node_modules
