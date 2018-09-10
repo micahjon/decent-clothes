@@ -1,10 +1,15 @@
 import Layout from '../components/MyLayout.js';
+import ReactMarkdown from 'react-markdown';
 
-const About = () => (
-  <Layout pageTitle="About">
-    <h1>About</h1>
-    <p>Welcome to the about page</p>
+const About = props => (
+  <Layout pageTitle="Our Story">
+    <ReactMarkdown source={props.content} />
   </Layout>
 );
+
+About.getInitialProps = async function() {
+  const content = await require(`../content/about.md`);
+  return { content };
+};
 
 export default About;
