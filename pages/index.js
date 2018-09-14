@@ -6,9 +6,16 @@ const Index = props => (
   <Layout>
     <h1>Decent clothes for&nbsp;decent&nbsp;people.</h1>
     <p>Premium made-to-fit clothes from fairly-compensated Cambodian tailors.</p>
-    <p>
-      <em>Check back for more details!</em>
-    </p>
+    <iframe
+      src="https://docs.google.com/forms/d/e/1FAIpQLScDh6wGqKI2GFtbRMEX6JRLhQJlvBnzoyIPsEtihl21yycvDg/viewform?embedded=true"
+      width="640"
+      height="2343"
+      frameborder="0"
+      marginheight="0"
+      marginwidth="0"
+    >
+      Loading...
+    </iframe>
     <style jsx>{`
       h1 {
         margin-top: 2rem;
@@ -16,6 +23,9 @@ const Index = props => (
       ul {
         padding: 0;
         list-style: none;
+      }
+      iframe {
+        max-width: 100%;
       }
     `}</style>
   </Layout>
