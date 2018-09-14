@@ -36,4 +36,4 @@ _Martin Hofkamp, Founder_
 - Audrey Thill: Phnom Penh Field Officer, Copy Editor
 - Peter Meyer-Reimer: Sales, Branding,  Copy Editor
 - Phil Gerigscott/Laurel Woodward: Design
-- Mohammad Rasoulipour: branding and marketing campaign
+- Mohammad Rasoulipour: Branding and Marketing Campaign
