@@ -31,9 +31,9 @@ _Martin Hofkamp, Founder_
 
 ## Our Volunteer Team
 
-Martin Hofkamp: Prey Veng Field Officer, Founder, Head of Cambodian Operations
-Micah Miller-Eshleman: Web Developer, Co-founder, Head of American Operations
-Audrey Thill: Phnom Penh Field Officer, Copy Editor
-Peter Meyer-Reimer: Sales, Branding,  Copy Editor
-Phil Gerigscott/Laurel Woodward: Design
-Mohammad Rasoulipour: branding and marketing campaign
+- Martin Hofkamp: Prey Veng Field Officer, Founder, Head of Cambodian Operations
+- Micah Miller-Eshleman: Web Developer, Co-founder, Head of American Operations
+- Audrey Thill: Phnom Penh Field Officer, Copy Editor
+- Peter Meyer-Reimer: Sales, Branding,  Copy Editor
+- Phil Gerigscott/Laurel Woodward: Design
+- Mohammad Rasoulipour: branding and marketing campaign
