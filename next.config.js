@@ -8,6 +8,7 @@ module.exports = withSass({
       '/about': { page: '/about' },
       '/contact': { page: '/contact' },
       '/privacy': { page: '/privacy' },
+      '/callback': { page: '/oauth-callback' },
     };
   },
 
