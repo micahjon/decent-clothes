@@ -2,9 +2,9 @@ import Head from 'next/head';
 import Header from './Header';
 
 const style = {
-  margin: '1em auto',
-  width: 'calc(100% - 2rem)',
-  maxWidth: 800,
+  // margin: '1em auto',
+  // width: 'calc(100% - 2rem)',
+  // maxWidth: 800,
 };
 
 const Layout = props => (

@@ -4,8 +4,10 @@ module.exports = withSass({
   exportPathMap: function() {
     return {
       '/': { page: '/' },
+      '/home-draft': { page: '/home-draft' },
       '/about': { page: '/about' },
       '/contact': { page: '/contact' },
+      '/privacy': { page: '/privacy' },
     };
   },
 
