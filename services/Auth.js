@@ -4,7 +4,7 @@ class Auth {
   auth0 = new auth0.WebAuth({
     domain: 'decentclothes.auth0.com',
     clientID: 'Hgt3J1Pq7p9Ok3OPU1E09JQx2qVM2fsz',
-    redirectUri: 'http://localhost:3000/callback',
+    redirectUri: 'https://decentclothes.com/callback', // 'http://localhost:3000/callback',
     responseType: 'token id_token',
     scope: 'openid',
   });
