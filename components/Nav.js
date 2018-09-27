@@ -2,17 +2,11 @@ import { column } from '../components/CommonStyles.js';
 import Link from 'next/link';
 import './global-styles.scss';
 import dynamic from 'next/dynamic';
+import { isLoggedIn, logout } from '../services/AuthLite';
 
 const linkStyle = {};
 
-const isAuthenticated = () => {
-  // Check whether the current time is past the
-  // access token's expiry time
-  const expiresAt = JSON.parse(localStorage.getItem('expires_at'));
-  return new Date().getTime() < expiresAt;
-};
-
-class Header extends React.Component {
+class Nav extends React.Component {
   constructor() {
     super();
     // Don't call this.setState() here!
@@ -20,7 +14,7 @@ class Header extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({ isAuthenticated: isAuthenticated() });
+    this.setState({ isAuthenticated: isLoggedIn() });
   }
 
   login() {
@@ -30,10 +24,8 @@ class Header extends React.Component {
   }
 
   logout() {
-    import(/* webpackChunkName: "auth" */ '../services/Auth').then(({ default: auth }) => {
-      auth.logout();
-      this.setState({ isAuthenticated: false });
-    });
+    logout();
+    this.setState({ isAuthenticated: false });
   }
 
   render() {
@@ -43,9 +35,9 @@ class Header extends React.Component {
           <Link href="/">
             <a style={{ marginRight: 'auto', textTransform: 'uppercase' }}>Decent Clothes</a>
           </Link>
-          <Link href="/shop">
-            <a style={{ border: '1px solid', padding: '0 4px', borderRadius: '3px' }}>Shop</a>
-          </Link>
+          {/* <Link href="/shop"> */}
+          {/*   <a style={{ border: '1px solid', padding: '0 4px', borderRadius: '3px' }}>Shop</a> */}
+          {/* </Link> */}
           <Link href="/about">
             <a>About</a>
           </Link>
@@ -68,6 +60,7 @@ class Header extends React.Component {
             text-decoration: none;
             color: currentColor;
             font-size: 14px;
+            cursor: pointer;
           }
           a:not(:last-child) {
             margin-right: 1rem;
@@ -86,4 +79,4 @@ class Header extends React.Component {
   }
 }
 
-export default Header;
+export default Nav;

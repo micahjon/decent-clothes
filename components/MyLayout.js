@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import Header from './Header';
+import Nav from './Nav';
 
 const style = {
   // margin: '1em auto',
@@ -15,7 +15,7 @@ const Layout = props => (
         Decent Clothes
       </title>
     </Head>
-    <Header />
+    <Nav />
     {props.children}
   </div>
 );
