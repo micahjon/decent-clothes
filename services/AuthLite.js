@@ -12,4 +12,11 @@ const logout = () => {
   localStorage.removeItem('expires_at');
 };
 
-export { isLoggedIn, logout };
+// Load Auth0 and then login
+const loadAuth0AndLogin = () => {
+  import(/* webpackChunkName: "auth" */ '../services/Auth').then(({ default: auth }) => {
+    auth.login();
+  });
+};
+
+export { isLoggedIn, logout, loadAuth0AndLogin };

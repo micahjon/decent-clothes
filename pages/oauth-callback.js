@@ -1,23 +1,30 @@
-import { withRouter } from 'next/router';
+import { column } from '../components/CommonStyles.js';
+import Layout from '../components/MyLayout.js';
 
 class OAuthCallback extends React.Component {
   componentDidMount() {
     import(/* webpackChunkName: "auth" */ '../services/Auth').then(({ default: auth }) => {
       auth.handleAuthentication(() => {
-        console.log('post auth callback....');
-        const { router } = this.props;
-
-        /**
-         * todo -> get router working
-         */
         window.location.href = '/';
       });
     });
   }
 
   render() {
-    return <div>Logging you in...</div>;
+    return (
+      <Layout pageTitle="Our Story">
+        <article style={column}>
+          <p>Logging you in...</p>
+        </article>
+        <style jsx>{`
+          p {
+            text-align: center;
+            margin: 4rem 0;
+          }
+        `}</style>
+      </Layout>
+    );
   }
 }
 
-export default withRouter(OAuthCallback);
+export default OAuthCallback; // withRouter();

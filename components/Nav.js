@@ -2,7 +2,7 @@ import { column } from '../components/CommonStyles.js';
 import Link from 'next/link';
 import './global-styles.scss';
 import dynamic from 'next/dynamic';
-import { isLoggedIn, logout } from '../services/AuthLite';
+import { isLoggedIn, logout, loadAuth0AndLogin } from '../services/AuthLite';
 
 const linkStyle = {};
 
@@ -17,13 +17,7 @@ class Nav extends React.Component {
     this.setState({ isAuthenticated: isLoggedIn() });
   }
 
-  login() {
-    import(/* webpackChunkName: "auth" */ '../services/Auth').then(({ default: auth }) => {
-      auth.login();
-    });
-  }
-
-  logout() {
+  handleLogout() {
     logout();
     this.setState({ isAuthenticated: false });
   }
@@ -42,9 +36,9 @@ class Nav extends React.Component {
             <a>About</a>
           </Link>
           {this.state.isAuthenticated ? (
-            <a onClick={this.logout.bind(this)}>Log out</a>
+            <a onClick={this.handleLogout.bind(this)}>Log out</a>
           ) : (
-            <a onClick={this.login.bind(this)}>Log in</a>
+            <a onClick={loadAuth0AndLogin}>Log in</a>
           )}
         </div>
         <style jsx>{`
