@@ -432,78 +432,78 @@ textarea {
    Custom styles
    ========================================================================== */
 
-html {
-  font-size: 16px;
-} // Use px instead of em to prevent cross-browser zooming inconsistency
+// html {
+//   font-size: 16px;
+// } // Use px instead of em to prevent cross-browser zooming inconsistency
 
-body {
-  font-family: 'Roboto Condensed', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  font-weight: 400;
-  line-height: 1.45;
-  color: #333;
+// body {
+//   font-family: 'Roboto Condensed', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+//   font-weight: 400;
+//   line-height: 1.45;
+//   color: #333;
 
-  background: center 200px no-repeat #ffefb3;
-  background-size: 100%;
-}
+//   background: center 200px no-repeat #ffefb3;
+//   background-size: 100%;
+// }
 
-@media (max-width: 480px) {
-  body {
-    background-image: url('/static/bg-yellow-640_mini.jpg');
-  }
-}
-@media (min-width: 481px) and (max-width: 1366px) {
-  body {
-    background-image: url('/static/bg-yellow-1366_mini.jpg');
-  }
-}
-@media (min-width: 1367px) {
-  body {
-    background-image: url('/static/bg-yellow-1920_mini.jpg');
-  }
-}
+// @media (max-width: 480px) {
+//   body {
+//     background-image: url('/static/bg-yellow-640_mini.jpg');
+//   }
+// }
+// @media (min-width: 481px) and (max-width: 1366px) {
+//   body {
+//     background-image: url('/static/bg-yellow-1366_mini.jpg');
+//   }
+// }
+// @media (min-width: 1367px) {
+//   body {
+//     background-image: url('/static/bg-yellow-1920_mini.jpg');
+//   }
+// }
 
-p {
-  margin: 0 0 1.3em 0;
-}
+// p {
+//   margin: 0 0 1.3em 0;
+// }
 
 h1,
 h2,
 h3,
 h4 {
   font-family: Alegreya, 'Marion', 'Baskerville', Georgia, sans-serif;
-  margin: 1.414em 0 0.5em;
-  font-weight: inherit;
-  line-height: 1.2;
+  // margin: 1.414em 0 0.5em;
+  // font-weight: inherit;
+  // line-height: 1.2;
 }
 
-h1,
-.h1 {
-  // margin-top: 0;
-  font-size: 2.441em;
-}
+// h1,
+// .h1 {
+//   // margin-top: 0;
+//   font-size: 2.441em;
+// }
 
-h2,
-.h2 {
-  font-size: 1.953em;
-}
+// h2,
+// .h2 {
+//   font-size: 1.953em;
+// }
 
-h3,
-.h3 {
-  font-size: 1.563em;
-}
+// h3,
+// .h3 {
+//   font-size: 1.563em;
+// }
 
-h4,
-.h4 {
-  font-size: 1.25em;
-}
+// h4,
+// .h4 {
+//   font-size: 1.25em;
+// }
 
-small,
-.font_small {
-  font-size: 0.8em;
-}
+// small,
+// .font_small {
+//   font-size: 0.8em;
+// }
 
-@media (min-width: 480px) {
-  html {
-    font-size: 18px;
-  }
-}
+// @media (min-width: 480px) {
+//   html {
+//     font-size: 18px;
+//   }
+// }

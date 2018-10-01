@@ -3,11 +3,12 @@ import Layout from '../components/MyLayout.js';
 
 class OAuthCallback extends React.Component {
   componentDidMount() {
-    import(/* webpackChunkName: "auth" */ '../services/Auth').then(({ default: auth }) => {
-      auth.handleAuthentication(() => {
-        window.location.href = '/';
-      });
-    });
+    console.log('old stuff');
+    // import(/* webpackChunkName: "auth" */ '../services/Auth').then(({ default: auth }) => {
+    //   auth.handleAuthentication(() => {
+    //     window.location.href = '/';
+    //   });
+    // });
   }
 
   render() {

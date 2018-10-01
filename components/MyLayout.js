@@ -1,5 +1,8 @@
 import Head from 'next/head';
 import Nav from './Nav';
+import { Grommet } from 'grommet';
+import './global-styles.scss';
+import { hpe } from 'grommet/themes';
 
 const style = {
   // margin: '1em auto',
@@ -8,16 +11,16 @@ const style = {
 };
 
 const Layout = props => (
-  <div style={style}>
+  <Grommet theme={hpe}>
     <Head>
       <title>
         {props.pageTitle ? `${props.pageTitle} | ` : ''}
         Decent Clothes
       </title>
     </Head>
-    <Nav />
+    <Nav {...props} />
     {props.children}
-  </div>
+  </Grommet>
 );
 
 export default Layout;

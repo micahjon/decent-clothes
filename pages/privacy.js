@@ -1,12 +1,12 @@
 import { column } from '../components/CommonStyles.js';
 import Layout from '../components/MyLayout.js';
-import ReactMarkdown from 'react-markdown';
+import { Box, Markdown } from 'grommet';
 
 const Privacy = props => (
   <Layout pageTitle="Privacy Policy">
-    <article style={column}>
-      <ReactMarkdown source={props.content} />
-    </article>
+    <Box tag="article" pad="large">
+      <Markdown>{props.content}</Markdown>
+    </Box>
   </Layout>
 );
 

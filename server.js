@@ -10,17 +10,17 @@ app
   .then(() => {
     const server = express();
 
-    server.get('/post/:slug', (req, res) => {
-      const pageTemplate = '/post';
-      const queryParams = { title: req.params.slug };
-      app.render(req, res, pageTemplate, queryParams);
-    });
-
-    server.get('/show/:id', (req, res) => {
-      const showTemplate = '/show';
-      const queryParams = { id: req.params.id };
-      app.render(req, res, showTemplate, queryParams);
-    });
+    //     server.get('/post/:slug', (req, res) => {
+    //       const pageTemplate = '/post';
+    //       const queryParams = { title: req.params.slug };
+    //       app.render(req, res, pageTemplate, queryParams);
+    //     });
+    //
+    //     server.get('/show/:id', (req, res) => {
+    //       const showTemplate = '/show';
+    //       const queryParams = { id: req.params.id };
+    //       app.render(req, res, showTemplate, queryParams);
+    //     });
 
     server.get('*', (req, res) => {
       return handle(req, res);
