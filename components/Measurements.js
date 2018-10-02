@@ -1,4 +1,3 @@
-import { column } from '../components/CommonStyles.js';
 import { Box, Heading, Paragraph, Markdown } from 'grommet';
 
 const text = `
@@ -11,9 +10,6 @@ A measuring tape (or string + ruler) is all you need, but a friend can help thin
 
 const Measurements = props => (
   <Box pad="large">
-    <Heading level={2} style={{ marginBottom: 0 }}>
-      What's your perfect fit?
-    </Heading>
     <Markdown>{text}</Markdown>
     <iframe
       src="https://docs.google.com/forms/d/e/1FAIpQLScDh6wGqKI2GFtbRMEX6JRLhQJlvBnzoyIPsEtihl21yycvDg/viewform?embedded=true"

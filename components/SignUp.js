@@ -8,19 +8,17 @@ class SignUp extends React.Component {
 
   render() {
     return (
-      <div className="outer">
-        <Box align="center" pad="large">
-          <Heading level={2} style={{ marginBottom: 0 }}>
-            Request an Invite
-          </Heading>
-          <Paragraph>
-            Sign up below and we'll send you an invitation as soon as we start taking&nbsp;orders!
-          </Paragraph>
-          <Button primary plain={false} onClick={login}>
-            Request Invite
-            <span> »</span>
-          </Button>
-        </Box>
+      <Box align="center" pad="large">
+        <Heading level={2} style={{ marginBottom: 0 }}>
+          Request an Invite
+        </Heading>
+        <Paragraph>
+          Sign up below and we'll send you an invitation as soon as we start taking&nbsp;orders!
+        </Paragraph>
+        <Button primary plain={false} onClick={login}>
+          Request Invite
+          <span> »</span>
+        </Button>
         <style jsx>{`
           * {
             text-align: center;
@@ -30,7 +28,7 @@ class SignUp extends React.Component {
             font-size: 1.25em;
           }
         `}</style>
-      </div>
+      </Box>
     );
   }
 }

@@ -1,4 +1,5 @@
 import { connect } from 'react-redux';
+import Router from 'next/router';
 import { login, logout, initialLoginFlow } from '../services/AuthLite';
 import { Box, Menu } from 'grommet';
 import { CaretDown } from 'grommet-icons';
@@ -22,13 +23,14 @@ class AccountNavItem extends React.Component {
 
   render() {
     return (
-      <div>
+      <div style={{ height: '24px' }}>
         {this.props.user.isLoading ? (
           <div>Loading....</div>
         ) : this.props.user.isLoggedIn ? (
           <Menu
             items={[
-              { label: 'Account', onClick: () => alert('Coming soon!') },
+              { label: 'Take Measurements', onClick: () => Router.push('/measurements') },
+              { label: 'Place Order', onClick: () => Router.push('/order') },
               { label: 'Log out', onClick: this.handleLogout.bind(this) },
             ]}
             dropAlign={{
@@ -42,7 +44,7 @@ class AccountNavItem extends React.Component {
             </Box>
           </Menu>
         ) : (
-          <a onClick={login}>Log in</a>
+          <a onClick={login}>Login</a>
         )}
         <style jsx>{`
           figure {
