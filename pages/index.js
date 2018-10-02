@@ -1,27 +1,52 @@
-import { column } from '../components/CommonStyles.js';
+import { connect } from 'react-redux';
 import Layout from '../components/MyLayout.js';
+import Shirt from '../components/Shirt.js';
+import SignUp from '../components/SignUp.js';
+import Measurements from '../components/Measurements.js';
+import { Box, Heading, Paragraph } from 'grommet';
 import Link from 'next/link';
-import fetch from 'isomorphic-unfetch';
+
+const mapStateToProps = ({ user }) => ({ user });
 
 const Index = props => (
   <Layout>
-    <article style={column}>
-      <h1>Decent clothes for&nbsp;decent&nbsp;people.</h1>
-      <p>Premium made-to-fit clothes from fairly-compensated Cambodian tailors.</p>
-      <iframe
-        src="https://docs.google.com/forms/d/e/1FAIpQLScDh6wGqKI2GFtbRMEX6JRLhQJlvBnzoyIPsEtihl21yycvDg/viewform?embedded=true"
-        width="640"
-        height="2343"
-        frameBorder="0"
-        marginHeight="0"
-        marginWidth="0"
-      >
-        Loading...
-      </iframe>
-    </article>
+    <Box align="center" pad="large">
+      <Heading style={{ textAlign: 'center', marginBottom: 0 }}>
+        Decent clothes for&nbsp;decent&nbsp;people.
+      </Heading>
+      <Paragraph style={{ textAlign: 'center' }}>
+        Premium made-to-fit clothes from fairly-compensated Cambodian&nbsp;tailors.
+      </Paragraph>
+    </Box>
+
+    <Shirt />
+
+    {!props.user.isLoggedIn ? (
+      <SignUp />
+    ) : (
+      <Box align="center" pad="large">
+        <Heading level={2} style={{ marginBottom: 0 }}>
+          Your next steps!
+        </Heading>
+        <ol>
+          <li>
+            <Link href="/measurements">
+              <a>Take Measurements</a>
+            </Link>
+          </li>
+          <li>
+            <Link href="/order">
+              <a>Place an Order</a>
+            </Link>
+          </li>
+        </ol>
+      </Box>
+    )}
+
     <style jsx>{`
-      h1 {
-        margin-top: 2rem;
+      p {
+        text-align: center;
+        margin-bottom: 2rem;
       }
       ul {
         padding: 0;
@@ -34,51 +59,4 @@ const Index = props => (
   </Layout>
 );
 
-// <p>How about paying for living wages instead of advertising?</p>
-
-//   <form action="#">
-//     <input type="email" placeholder="Your email" />
-//     <button>Request Invite</button>
-//   </form>
-
-// const LinkToPost = ({ title, slug }) => (
-//   <li>
-//     <Link as={`/post/${slug}`} href={`/post?title=${title}`}>
-//       <a>{title}</a>
-//     </Link>
-//   </li>
-// );
-
-// const LinkToShow = ({ id, name }) => (
-//   <li key={id}>
-//     <Link as={`/show/${id}`} href={`/show?id=${id}`}>
-//       <a>{name}</a>
-//     </Link>
-//     <style jsx>{`
-//       li {
-//         font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-//         margin: 10px;
-//       }
-
-//       a {
-//         text-decoration: none;
-//         color: blue;
-//       }
-
-//       a:hover {
-//         opacity: 0.6;
-//       }
-//     `}</style>
-//   </li>
-// );
-
-// Index.getInitialProps = async function() {
-//   const response = await fetch('https://api.tvmaze.com/search/shows?q=batman');
-//   const shows = await response.json();
-
-//   console.log('Shows:', shows.length);
-
-//   return { shows };
-// };
-
-export default Index;
+export default connect(mapStateToProps)(Index);

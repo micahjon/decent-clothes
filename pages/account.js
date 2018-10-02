@@ -10,17 +10,12 @@ const renderers = {
   },
 };
 
-const About = props => (
+const Account = props => (
   <Layout pageTitle="Our Story">
     <Box tag="article" pad="large" align="center">
-      <Markdown>{props.content}</Markdown>
+      test
     </Box>
   </Layout>
 );
 
-About.getInitialProps = async function() {
-  const content = await require(`../content/about.md`);
-  return { content };
-};
-
-export default About;
+export default Account;

@@ -1,4 +1,5 @@
 import { column } from '../components/CommonStyles.js';
+import { Heading, Paragraph } from 'grommet';
 
 const linkStyle = {};
 
@@ -7,7 +8,9 @@ const Shirt = () => (
     <div className="inner" style={column}>
       <img src="/static/shirt.jpeg" />
       <aside>
-        <h2>Our distinctives</h2>
+        <Heading level={2} style={{ background: 'white', boxShadow: '0 0 3px white' }}>
+          Our distinctives
+        </Heading>
         <ul>
           <li>A great fit for you</li>
           <li>Living wages for tailors</li>
@@ -22,7 +25,7 @@ const Shirt = () => (
       }
       .inner {
         position: relative;
-        max-width: 500px !important;
+        max-width: 480px !important;
       }
 
       img {
@@ -41,6 +44,7 @@ const Shirt = () => (
       h2,
       li {
         background: white;
+        box-shadow: 0 0 3px white;
       }
     `}</style>
   </div>

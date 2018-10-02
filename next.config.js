@@ -4,11 +4,14 @@ module.exports = withSass({
   exportPathMap: function() {
     return {
       '/': { page: '/' },
-      '/home-draft': { page: '/home-draft' },
+      // '/home-draft': { page: '/home-draft' },
       '/about': { page: '/about' },
-      '/contact': { page: '/contact' },
+      // '/contact': { page: '/contact' },
       '/privacy': { page: '/privacy' },
-      '/callback': { page: '/oauth-callback' },
+      // '/callback': { page: '/oauth-callback' },
+      // '/account': { page: '/account' },
+      '/order': { page: '/order' },
+      '/measurements': { page: '/measurements' },
     };
   },
 
