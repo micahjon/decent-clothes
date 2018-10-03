@@ -436,15 +436,23 @@ textarea {
 //   font-size: 16px;
 // } // Use px instead of em to prevent cross-browser zooming inconsistency
 
-// body {
-//   font-family: 'Roboto Condensed', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-//   font-weight: 400;
-//   line-height: 1.45;
-//   color: #333;
+body {
+  // Roboto+Condensed|Fira+Sans|Rubik|Libre+Franklin|Work+Sans
 
-//   background: center 200px no-repeat #ffefb3;
-//   background-size: 100%;
-// }
+  // font-family: 'Roboto Condensed', monospace, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  // font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-family: 'Fira Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  // font-family: 'Open Sans', monospace, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  // font-family: 'Ubuntu', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  // letter-spacing: 0.2px;
+
+  // font-weight: 400;
+  // line-height: 1.45;
+  // color: #333;
+
+  // background: center 200px no-repeat #ffefb3;
+  // background-size: 100%;
+}
 
 // @media (max-width: 480px) {
 //   body {
@@ -471,6 +479,7 @@ h2,
 h3,
 h4 {
   font-family: Alegreya, 'Marion', 'Baskerville', Georgia, sans-serif;
+  // letter-spacing: 0;
   // margin: 1.414em 0 0.5em;
   // font-weight: inherit;
   // line-height: 1.2;
