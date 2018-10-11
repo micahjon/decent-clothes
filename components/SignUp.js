@@ -1,4 +1,3 @@
-import { login } from '../services/AuthLite';
 import { Box, Button, Heading, Paragraph } from 'grommet';
 
 const linkStyle = {};
@@ -13,9 +12,10 @@ class SignUp extends React.Component {
           Request an Invite
         </Heading>
         <Paragraph>
-          Sign up below and we'll send you an invitation as soon as we start taking&nbsp;orders!
+          Sign up below and we'll send you an invitation as soon as we start
+          taking&nbsp;orders!
         </Paragraph>
-        <Button primary plain={false} onClick={login}>
+        <Button primary plain={false} onClick={() => console.log('to-do!')}>
           Request Invite
           <span> »</span>
         </Button>
