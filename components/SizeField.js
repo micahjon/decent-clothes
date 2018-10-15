@@ -1,66 +1,58 @@
 import { Box } from 'grommet';
-import { RadioGroup, Radio } from 'react-radio-group';
-
-const toQuarter = num => (Math.round(num * 4) / 4).toFixed(2);
-const toHalf = num => (Math.round(num * 2) / 2).toFixed(1);
-
-const conversions = {
-  in: cm => toQuarter(cm / 2.54),
-  cm: inches => toHalf(inches * 2.54),
-};
 
 class SizeField extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      unit: 'in',
-      value: '',
-    };
+    props.registerUnitChangeListener(
+      this.props.name,
+      this.handleUnitChange.bind(this)
+    );
   }
 
-  handleUnitChange(unit) {
-    this.setState({
-      unit: unit,
-      value: conversions[unit](this.state.value),
-    });
+  shouldComponentUpdate(nextProps) {
+    const { value } = this.props;
+    return (
+      value.size !== nextProps.value.size || value.unit !== nextProps.value.unit
+    );
+  }
+
+  handleUnitChange(unit, convertSize) {
+    const currentSize = this.props.value.size;
+    this.updateValue(currentSize === '' ? '' : convertSize(currentSize), unit);
+  }
+
+  updateValue(size, unit = this.props.unit) {
+    this.props.setFieldValue(this.props.name, { size, unit });
   }
 
   render() {
-    const props = this.props;
-    const units = ['in', 'cm'];
+    const { label, value, getValidSize } = this.props;
 
-    // console.log('props', props);
+    console.log('render SizeField', this.props);
 
-    const options = props.options || ['in', 'cm'];
+    if (this.props.render) {
+      return this.props.render({
+        label,
+        value,
+        getValidSize,
+        updateValue: this.updateValue.bind(this),
+      });
+    }
+
     return (
-      <Box pad="small">
-        <label>{props.label}</label>
-        <Box direction="row">
-          <input
-            value={this.state.value}
-            onChange={event => {
-              const value = event.target.value;
-              if (/[0-9.]*/.test(value)) {
-                this.setState({ value: parseFloat(value) });
-              }
-            }}
-            // {...props.field}
-            type="number"
-            style={{ marginRight: 'auto' }}
-          />
-          <RadioGroup
-            name="unit"
-            selectedValue={this.state.unit}
-            onChange={this.handleUnitChange.bind(this)}
-          >
-            {units.map(unit => (
-              <label key={unit}>
-                <Radio value={unit} />
-                {unit}
-              </label>
-            ))}
-          </RadioGroup>
-        </Box>
+      <Box>
+        <label>{label}</label>
+        <input
+          value={value.size}
+          onChange={event => {
+            const size = getValidSize(event.target.value);
+            if (typeof size !== 'undefined') {
+              this.updateValue(size);
+            }
+          }}
+          type="number"
+          style={{ width: '4rem', marginRight: '1rem' }}
+        />
       </Box>
     );
   }
