@@ -24,6 +24,7 @@
     "next-redux-wrapper": "^2.0.0",
     "node-sass": "^4.9.3",
     "raw-loader": "^0.5.1",
+    "rc-slider": "^8.6.3",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-radio-group": "^3.0.3",

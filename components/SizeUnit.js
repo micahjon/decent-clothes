@@ -66,7 +66,12 @@ class SizeUnit extends React.Component {
 
     const units = this.props.units || defaultUnits;
     return (
-      <Box direction="row" align="end">
+      <Box
+        direction="row"
+        align="end"
+        pad="small"
+        style={{ minHeight: '3rem' }}
+      >
         {this.props.render({
           registerUnitChangeListener: this.registerUnitChangeListener.bind(
             this
@@ -80,12 +85,36 @@ class SizeUnit extends React.Component {
           style={{ marginLeft: 'auto' }}
         >
           {units.map((unit, i) => (
-            <label key={unit} style={{ marginLeft: i === 0 ? '' : '8px' }}>
-              <Radio value={unit} style={{ marginRight: '4px' }} />
+            <label
+              key={unit}
+              style={{
+                marginLeft: i === 0 ? '' : '8px',
+                background: unit === this.state.unit ? '#f5f5f5' : '',
+              }}
+            >
+              <Radio
+                value={unit}
+                style={{
+                  //   marginRight: '40px',
+                  position: 'absolute',
+                  opacity: '0',
+                  zIndex: '-1',
+                }}
+              />
               {unit}
             </label>
           ))}
         </RadioGroup>
+        <style jsx>{`
+          label {
+            border: 1px solid #f5f5f5;
+            display: inline-block;
+            text-align: center;
+            min-width: 2rem;
+            line-height: 1.5rem;
+            height: 1.5rem;
+          }
+        `}</style>
       </Box>
     );
   }

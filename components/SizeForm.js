@@ -14,9 +14,12 @@ import SizeField from './SizeField';
 import SizeFieldHeight from './SizeFieldHeight';
 import { Formik, FastField, Field } from 'formik';
 
+import Slider, { Range } from 'rc-slider';
+import { default as rcSliderStyles } from 'rc-slider/assets/index.css';
+
 const SizeForm = props => {
   return (
-    <Box>
+    <Box style={{ maxWidth: '432px' }}>
       <Formik
         initialValues={{
           // Basic
@@ -62,6 +65,7 @@ const SizeForm = props => {
         }) => (
           <form onSubmit={handleSubmit}>
             <Heading level={2}>1. The Basics</Heading>
+
             <SizeUnit
               render={unit => (
                 <Field
@@ -94,7 +98,26 @@ const SizeForm = props => {
                 />
               )}
             />
-            <p>shirt_size</p>
+
+            <Box pad="small" style={{ minHeight: '6rem' }}>
+              <label htmlFor="" style={{ lineHeight: '2rem' }}>
+                Shirt Size
+              </label>
+              <Slider
+                min={0}
+                max={20}
+                defaultValue={3}
+                marks={{
+                  0: 'XS',
+                  4: 'S',
+                  8: 'M',
+                  12: 'L',
+                  16: 'XL',
+                  20: 'XXL',
+                }}
+              />
+            </Box>
+
             <Heading level={3}>What size pants fit you best?</Heading>
             <SizeUnit
               render={unit => (
@@ -200,6 +223,9 @@ const SizeForm = props => {
           </form>
         )}
       </Formik>
+      <style jsx global>
+        {rcSliderStyles}
+      </style>
       <style jsx>{``}</style>
     </Box>
   );

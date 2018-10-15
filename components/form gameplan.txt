@@ -1,0 +1,69 @@
+
+How things work:
+
+1. Formik takes care of validation & syncing values w/ Field components
+    - props.value is the value
+    - call props.onChange w/ a new React change event on update
+
+2. Lower level components translate these measurements w/ units into one or
+    more fields that are displayed to user. e.g.
+
+    value = 5ft 3in
+    becomes...
+    fields = [
+        { unit: 'ft', value: 5, ...? }
+    ]
+
+All Fields:
+
+Basic
+    height
+    weight
+    shirt_size
+    pant_waist
+    pant_length
+
+Advanced
+    neck_around
+        collar_around
+    bicep_around
+        sleeve_bicep_around
+    forearm_around
+        sleeve_forearm_around
+    wrist_around
+        cuff_around
+    torso_length
+        shirt_length ? front/back ?
+    sleeve_length
+    shoulder_width
+    chest_around
+        shirt_chest_around
+    waist_around
+        shirt_waist_around
+
+//--
+
+Units:
+
+
+<Units render=({ onUnitChange, getSize, unitHasChanged })>
+    <Field name="pant_waist" render={({ field, form }) => (
+        <SizeField label="Waist" />
+    )} />
+    <Field name="pant_length" render={({ field, form }) => (
+        <SizeField label="Length" />
+    )} />
+</Units>
+
+SizeField {
+    on input value change...
+        setFieldValue(this.props.name, { size: input value, this.props.unit });
+    
+    this.props.unitHasChanged(({ unit, conversion }) => {
+        this.setFieldValue(this.props.name, { size: ..., unit })
+    });
+
+    <input value={this.props.value.size}>
+   
+
+}

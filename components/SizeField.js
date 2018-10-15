@@ -28,7 +28,7 @@ class SizeField extends React.Component {
   render() {
     const { label, value, getValidSize } = this.props;
 
-    console.log('render SizeField', this.props);
+    // console.log('render SizeField', this.props);
 
     if (this.props.render) {
       return this.props.render({
