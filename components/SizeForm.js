@@ -1,21 +1,53 @@
-import {
-  Box,
-  Heading,
-  Paragraph,
-  Markdown,
-  CheckBox,
-  FormField,
-  TextInput,
-  Split,
-  Label,
-} from 'grommet';
-import SizeUnit from './SizeUnit';
+import { Box, Heading, Button } from 'grommet';
+import Unit from './Unit';
+import Choice from './Choice';
 import SizeField from './SizeField';
 import SizeFieldHeight from './SizeFieldHeight';
 import { Formik, FastField, Field } from 'formik';
+import SizeFieldShirt from './SizeFieldShirt';
+import conversions from '../services/conversions';
 
-import Slider, { Range } from 'rc-slider';
-import { default as rcSliderStyles } from 'rc-slider/assets/index.css';
+const neckToCollar = unit => (unit === 'in' ? 1 : 2.5);
+const between = (min, mid, max) => Math.max(min, Math.min(mid, max));
+
+// Prediction equations
+const neckAround = ({ collar_size, shirt_size }, { unit }) => {
+  if (collar_size.size) {
+    return collar_size.size - neckToCollar(unit);
+  }
+  if (shirt_size.size) {
+    const size = 13.25 + shirt_size.size;
+    return unit === 'in' ? size : conversions['cm'](size);
+  }
+};
+const collarSize = ({ neck_around, shirt_size }, { unit }) => {
+  if (neck_around.size) {
+    return neck_around.size + neckToCollar(unit);
+  }
+  if (shirt_size.size) {
+    const size = 13.25 + shirt_size.size + neckToCollar('in');
+    return unit === 'in' ? size : conversions['cm'](size);
+  }
+};
+const chestSize = ({ shirt_size }, { unit }) => {
+  const size = 31 + shirt_size.size * 4;
+  return unit === 'in' ? size : conversions['cm'](size);
+};
+const sleeveLength = ({ shirt_size }, { unit }) => {
+  const size = 31.25 + shirt_size.size;
+  return unit === 'in' ? size : conversions['cm'](size);
+};
+const shoulderWidth = ({ shirt_size }, { unit }) => {
+  let size = 14.75 + shirt_size.size;
+  if (shirt_size.size >= 3.5) size -= 0.25;
+  return unit === 'in' ? size : conversions['cm'](size);
+};
+const waistAround = ({ shirt_size }, { unit }) => {
+  let size = 25 + shirt_size.size * 4;
+  const overLarge = shirt_size.size - 3;
+  if (overLarge > 0) size = between(size, size + overLarge, size + 2);
+  return unit === 'in' ? size : conversions['cm'](size);
+};
 
 const SizeForm = props => {
   return (
@@ -23,14 +55,14 @@ const SizeForm = props => {
       <Formik
         initialValues={{
           // Basic
-          height: { size: '60', unit: 'in' },
+          height: { size: 60, unit: 'in' },
           weight: { size: '', unit: 'lbs' },
-          shirt_size: { size: '', unit: '' },
+          shirt_size: { size: 2.5, length: '' },
           pant_waist: { size: '', unit: 'in' },
           pant_length: { size: '', unit: 'in' },
           // Advanced
           neck_around: { size: '', unit: 'in' },
-          collar_around: { size: '', unit: 'in' },
+          collar_size: { size: '', unit: 'in' },
           bicep_around: { size: '', unit: 'in' },
           sleeve_bicep_around: { size: '', unit: 'in' },
           forearm_around: { size: '', unit: 'in' },
@@ -66,14 +98,15 @@ const SizeForm = props => {
           <form onSubmit={handleSubmit}>
             <Heading level={2}>1. The Basics</Heading>
 
-            <SizeUnit
-              render={unit => (
+            <Unit
+              render={unitProps => (
                 <Field
                   name="height"
                   render={({ field, form }) => (
                     <SizeField
                       {...field}
-                      {...unit}
+                      {...unitProps}
+                      form={form}
                       setFieldValue={form.setFieldValue}
                       label="Height"
                       render={SizeFieldHeight}
@@ -82,15 +115,15 @@ const SizeForm = props => {
                 />
               )}
             />
-            <SizeUnit
+            <Unit
               units={['lbs', 'kg']}
-              render={unit => (
+              render={unitProps => (
                 <Field
                   name="weight"
                   render={({ field, form }) => (
                     <SizeField
                       {...field}
-                      {...unit}
+                      {...unitProps}
                       setFieldValue={form.setFieldValue}
                       label="Weight"
                     />
@@ -99,35 +132,28 @@ const SizeForm = props => {
               )}
             />
 
-            <Box pad="small" style={{ minHeight: '6rem' }}>
-              <label htmlFor="" style={{ lineHeight: '2rem' }}>
-                Shirt Size
-              </label>
-              <Slider
-                min={0}
-                max={20}
-                defaultValue={3}
-                marks={{
-                  0: 'XS',
-                  4: 'S',
-                  8: 'M',
-                  12: 'L',
-                  16: 'XL',
-                  20: 'XXL',
-                }}
-              />
-            </Box>
+            <Field
+              name="shirt_size"
+              render={({ field, form }) => (
+                <SizeFieldShirt
+                  {...field}
+                  defaultSize={form.values.shirt_size.size}
+                  setFieldValue={form.setFieldValue}
+                  label="Shirt Size"
+                />
+              )}
+            />
 
             <Heading level={3}>What size pants fit you best?</Heading>
-            <SizeUnit
-              render={unit => (
+            <Unit
+              render={unitProps => (
                 <React.Fragment>
                   <Field
                     name="pant_waist"
                     render={({ field, form }) => (
                       <SizeField
                         {...field}
-                        {...unit}
+                        {...unitProps}
                         setFieldValue={form.setFieldValue}
                         label="Waist"
                       />
@@ -138,7 +164,7 @@ const SizeForm = props => {
                     render={({ field, form }) => (
                       <SizeField
                         {...field}
-                        {...unit}
+                        {...unitProps}
                         setFieldValue={form.setFieldValue}
                         label="Length"
                       />
@@ -152,31 +178,70 @@ const SizeForm = props => {
               This section is optional, but we recommend you complete as much of
               it as you can to improve your fit.
             </p>
-            <p>
+            {/* <p>
               Click to [icon] to see a brief video of how to take each size
               measurement
-            </p>
+            </p> */}
+            <Unit
+              render={unitProps => (
+                <React.Fragment>
+                  <Field
+                    name="neck_around"
+                    render={({ field, form }) => (
+                      <SizeField
+                        {...field}
+                        {...unitProps}
+                        setFieldValue={form.setFieldValue}
+                        label="Neck Size"
+                        placeholder={neckAround(form.values, unitProps)}
+                      />
+                    )}
+                  />
+                  <Field
+                    name="collar_size"
+                    render={({ field, form }) => (
+                      <SizeField
+                        {...field}
+                        {...unitProps}
+                        setFieldValue={form.setFieldValue}
+                        label="Collar Size"
+                        placeholder={collarSize(form.values, unitProps)}
+                      />
+                    )}
+                  />
+                </React.Fragment>
+              )}
+            />
             {Object.entries({
-              neck_around: 'Neck Around',
-              sleeve_length: 'Sleeve Length',
-              bicep_around: 'Bicep Around',
-              forearm_around: 'Forearm Around',
-              wrist_around: 'Wrist Around',
-              shoulder_width: 'Shoulder Width',
-              chest_around: 'Chest Around',
-              waist_around: 'Waist Around',
-            }).map(([name, label]) => {
+              sleeve_length: {
+                label: 'Sleeve Length',
+                prediction: sleeveLength,
+              },
+              bicep_around: { label: 'Bicep Around' },
+              forearm_around: { label: 'Forearm Around' },
+              wrist_around: { label: 'Wrist Around' },
+              shoulder_width: {
+                label: 'Shoulder Width',
+                prediction: shoulderWidth,
+              },
+              chest_around: { label: 'Chest Around', prediction: chestSize },
+              waist_around: { label: 'Waist Around', prediction: waistAround },
+            }).map(([name, { label, prediction }]) => {
               return (
-                <SizeUnit
-                  render={unit => (
+                <Unit
+                  key={name}
+                  render={unitProps => (
                     <Field
                       name={name}
                       render={({ field, form }) => (
                         <SizeField
                           {...field}
-                          {...unit}
+                          {...unitProps}
                           setFieldValue={form.setFieldValue}
                           label={label}
+                          placeholder={
+                            prediction && prediction(form.values, unitProps)
+                          }
                         />
                       )}
                     />
@@ -184,68 +249,26 @@ const SizeForm = props => {
                 />
               );
             })}
-
-            {/* <Field
-              name="shirt_size"
-              render={({ field, form }) => (
-                <SizeField field={field} label="Shirt Size" />
-              )}
-            />
-            <h3>What size of pants fit you best?</h3>
-            <Field
-              name="pant_waist"
-              render={({ field, form }) => (
-                <SizeField
-                  field={field}
-                  fields={{ waist: 'Waist', length: 'Length' }}
-                />
-              )}
-            />
-            <Field
-              name="pant_length"
-              render={({ field, form }) => (
-                <SizeField
-                  field={field}
-                  fields={{ waist: 'Waist', length: 'Length' }}
-                />
-              )}
-            /> */}
-            {/* <Field
-              name="pant_length"
-              render={({ field, form }) => (
-                <SizeField field={field} label="Length" units={['lbs', 'kg']} />
-              )}
-            /> */}
-
-            {/* <button type="submit" disabled={isSubmitting}>
-            Submit
-          </button> */}
+            <Box
+              align="center"
+              pad={{ vertical: 'medium', horizontal: 'small' }}
+            >
+              <Button
+                primary
+                plain={false}
+                type="submit"
+                disabled={isSubmitting}
+                style={{ width: '100%' }}
+              >
+                Save & Submit
+              </Button>
+            </Box>
           </form>
         )}
       </Formik>
-      <style jsx global>
-        {rcSliderStyles}
-      </style>
       <style jsx>{``}</style>
     </Box>
   );
 };
 
 export default SizeForm;
-
-// <FastField
-//   name="body_weight"
-//   render={({ field, form }) => (
-//     <Box pad="small">
-//       <label>Weight</label>
-//       <Box direction="row">
-//         <input
-//           type="number"
-//           {...field}
-//           style={{ marginRight: 'auto' }}
-//         />
-//         <CheckBox label="lbs / kg" toggle={true} />
-//       </Box>
-//     </Box>
-//   )}
-// />

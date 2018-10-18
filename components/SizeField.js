@@ -3,16 +3,15 @@ import { Box } from 'grommet';
 class SizeField extends React.Component {
   constructor(props) {
     super(props);
-    props.registerUnitChangeListener(
-      this.props.name,
-      this.handleUnitChange.bind(this)
-    );
+    props.registerUnitChangeListener(props.name, this.handleUnitChange.bind(this));
   }
 
   shouldComponentUpdate(nextProps) {
-    const { value } = this.props;
+    const props = this.props;
+    const changes = ['unit', 'placeholder'];
     return (
-      value.size !== nextProps.value.size || value.unit !== nextProps.value.unit
+      props.value.size !== nextProps.value.size
+      || changes.some(prop => props[prop] !== nextProps[prop])
     );
   }
 
@@ -26,7 +25,9 @@ class SizeField extends React.Component {
   }
 
   render() {
-    const { label, value, getValidSize } = this.props;
+    const {
+      label, value, getValidSize, style, placeholder,
+    } = this.props;
 
     // console.log('render SizeField', this.props);
 
@@ -40,18 +41,19 @@ class SizeField extends React.Component {
     }
 
     return (
-      <Box>
+      <Box style={style}>
         <label>{label}</label>
         <input
           value={value.size}
-          onChange={event => {
+          onChange={(event) => {
             const size = getValidSize(event.target.value);
             if (typeof size !== 'undefined') {
               this.updateValue(size);
             }
           }}
           type="number"
-          style={{ width: '4rem', marginRight: '1rem' }}
+          style={{}}
+          placeholder={placeholder > 0 ? placeholder : ''}
         />
       </Box>
     );

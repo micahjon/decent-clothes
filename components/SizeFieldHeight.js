@@ -1,7 +1,9 @@
 import { Box } from 'grommet';
 import SizeField from './SizeField';
 
-const SizeFieldHeight = ({ label, value, getValidSize, updateValue }) => {
+const SizeFieldHeight = ({
+  label, value, getValidSize, updateValue,
+}) => {
   const feet = Math.floor(value.size / 12);
   const inches = value.size - feet * 12;
 
@@ -12,10 +14,10 @@ const SizeFieldHeight = ({ label, value, getValidSize, updateValue }) => {
         <Box direction="row">
           <input
             value={feet}
-            onFocus={event => {
+            onFocus={(event) => {
               event.target.select();
             }}
-            onChange={event => {
+            onChange={(event) => {
               const newFeet = getValidSize(event.target.value);
               // console.log({ newFeet });
               switch (typeof newFeet) {
@@ -26,12 +28,12 @@ const SizeFieldHeight = ({ label, value, getValidSize, updateValue }) => {
               }
             }}
             type="number"
-            style={{ width: '3rem', marginRight: '.25rem' }}
+            style={{ width: '2rem', marginRight: '.25rem' }}
           />
           <label style={{ marginRight: '1.25rem' }}>ft</label>
           <input
             value={inches}
-            onChange={event => {
+            onChange={(event) => {
               const newInches = getValidSize(event.target.value);
               // console.log({ newInches });
               switch (typeof newInches) {
@@ -41,25 +43,24 @@ const SizeFieldHeight = ({ label, value, getValidSize, updateValue }) => {
                   return updateValue(newInches, value.unit);
               }
             }}
-            onFocus={event => {
+            onFocus={(event) => {
               event.target.select();
             }}
             type="number"
-            style={{ width: '3rem', marginRight: '.25rem' }}
+            style={{ width: '2rem', marginRight: '.25rem' }}
           />
           <label style={{ marginRight: '1.25rem' }}>in</label>
         </Box>
       )) || (
         <input
           value={value.size}
-          onChange={event => {
+          onChange={(event) => {
             const size = getValidSize(event.target.value);
             if (typeof size !== 'undefined') {
               updateValue(size);
             }
           }}
           type="number"
-          style={{ width: '3rem', marginRight: '.25rem' }}
         />
       )}
     </Box>
