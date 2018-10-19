@@ -12,10 +12,11 @@ const Index = props => (
   <Layout>
     <Box align="center" pad="large">
       <Heading style={{ textAlign: 'center', marginBottom: 0 }}>
-        Decent clothes for&nbsp;decent&nbsp;people.
+        Decent Clothes
       </Heading>
       <Paragraph style={{ textAlign: 'center' }}>
-        Premium made-to-fit clothes from fairly-compensated Cambodian&nbsp;tailors.
+        Premium made-to-fit clothes from fairly-compensated
+        Cambodian&nbsp;tailors.
       </Paragraph>
     </Box>
 

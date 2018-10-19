@@ -516,3 +516,21 @@ h4 {
 //     font-size: 18px;
 //   }
 // }
+
+input[type="number"] {
+  width: 3rem;
+  border-radius: 3px;
+  border: 1px solid rgb(231, 231, 231);
+  margin-right: 1rem;
+  padding: 4px 6px;
+  line-height: 1rem;
+  &:focus {
+    outline: 0;
+    box-shadow: 0 0 0 2px #e7e7e7;
+  }
+}
+
+.radio-checked:focus-within {
+    outline: 0;
+    box-shadow: 0 0 0 2px #e7e7e7;
+}

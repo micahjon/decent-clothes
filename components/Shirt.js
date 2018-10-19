@@ -8,11 +8,14 @@ const Shirt = () => (
     <div className="inner" style={column}>
       <img src="/static/shirt.jpeg" />
       <aside>
-        <Heading level={2} style={{ background: 'white', boxShadow: '0 0 3px white' }}>
+        <Heading
+          level={2}
+          style={{ background: 'white', boxShadow: '0 0 3px white' }}
+        >
           Our distinctives
         </Heading>
         <ul>
-          <li>A great fit for you</li>
+          <li>A custom fit for you</li>
           <li>Living wages for tailors</li>
           <li>100% salvaged fabric</li>
         </ul>
