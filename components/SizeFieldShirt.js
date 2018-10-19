@@ -1,6 +1,6 @@
 import { Box } from 'grommet';
 import Slider from 'rc-slider';
-import { default as rcSliderStyles } from 'rc-slider/assets/index.css';
+// import 'rc-slider/assets/index.css';
 import Choice from './Choice';
 
 class SizeFieldShirt extends React.Component {
@@ -55,9 +55,6 @@ class SizeFieldShirt extends React.Component {
           handleChange={this.updateLength.bind(this)}
           options={['regular', 'tall']}
         />
-        <style jsx global>
-          {rcSliderStyles}
-        </style>
       </Box>
     );
   }
