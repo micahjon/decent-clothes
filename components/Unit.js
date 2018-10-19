@@ -1,6 +1,6 @@
 import { Box } from 'grommet';
 import Choice from './Choice';
-import conversions from '../services/conversions';
+import { conversions } from '../services/conversions';
 
 /**
  * Converts arbitrary user input into a valid input value

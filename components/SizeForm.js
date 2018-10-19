@@ -1,11 +1,12 @@
 import { Box, Heading, Button } from 'grommet';
 import Unit from './Unit';
-import Choice from './Choice';
 import SizeField from './SizeField';
 import SizeFieldHeight from './SizeFieldHeight';
 import { Formik, FastField, Field } from 'formik';
 import SizeFieldShirt from './SizeFieldShirt';
-import conversions from '../services/conversions';
+import { conversions, shirtSize } from '../services/conversions';
+import fetch from 'unfetch';
+import { getLocalProfile, getLocalSession } from '../services/AuthLite';
 
 const neckToCollar = unit => (unit === 'in' ? 1 : 2.5);
 const between = (min, mid, max) => Math.max(min, Math.min(mid, max));
@@ -49,6 +50,14 @@ const waistAround = ({ shirt_size }, { unit }) => {
   return unit === 'in' ? size : conversions['cm'](size);
 };
 
+const encodeFormData = data => {
+  return Object.keys(data)
+    .map(key => encodeURIComponent(key) + '=' + encodeURIComponent(data[key]))
+    .join('&');
+};
+
+const netlifyFormName = 'body_size';
+
 const SizeForm = props => {
   return (
     <Box style={{ maxWidth: '432px' }}>
@@ -57,32 +66,74 @@ const SizeForm = props => {
           // Basic
           height: { size: 60, unit: 'in' },
           weight: { size: '', unit: 'lbs' },
-          shirt_size: { size: 2.5, length: '' },
+          shirt_size: { size: 2.5, length: 'regular' },
           pant_waist: { size: '', unit: 'in' },
           pant_length: { size: '', unit: 'in' },
           // Advanced
           neck_around: { size: '', unit: 'in' },
           collar_size: { size: '', unit: 'in' },
-          bicep_around: { size: '', unit: 'in' },
-          sleeve_bicep_around: { size: '', unit: 'in' },
-          forearm_around: { size: '', unit: 'in' },
-          sleeve_forearm_around: { size: '', unit: 'in' },
-          wrist_around: { size: '', unit: 'in' },
-          cuff_around: { size: '', unit: 'in' },
-          torso_length: { size: '', unit: 'in' },
-          shirt_length: { size: '', unit: 'in' },
           sleeve_length: { size: '', unit: 'in' },
+          bicep_around: { size: '', unit: 'in' },
+          // sleeve_bicep_around: { size: '', unit: 'in' },
+          forearm_around: { size: '', unit: 'in' },
+          // sleeve_forearm_around: { size: '', unit: 'in' },
+          wrist_around: { size: '', unit: 'in' },
+          // cuff_around: { size: '', unit: 'in' },
+          // torso_length: { size: '', unit: 'in' },
+          // shirt_length: { size: '', unit: 'in' },
           shoulder_width: { size: '', unit: 'in' },
           chest_around: { size: '', unit: 'in' },
-          shirt_chest_around: { size: '', unit: 'in' },
+          // shirt_chest_around: { size: '', unit: 'in' },
           waist_around: { size: '', unit: 'in' },
-          shirt_waist_around: { size: '', unit: 'in' },
+          // shirt_waist_around: { size: '', unit: 'in' },
         }}
         onSubmit={(values, { setSubmitting }) => {
-          setTimeout(() => {
-            alert(JSON.stringify(values, null, 2));
-            setSubmitting(false);
-          }, 400);
+          const sizes = {};
+          Object.entries(values).forEach(([key, { size, unit, length }]) => {
+            if (key === 'shirt_size') {
+              sizes[key] = `${shirtSize(size)} ${length}`;
+            } else {
+              sizes[key] = size ? `${size}${unit}` : '';
+            }
+          });
+
+          // @todo -> where is user email?
+
+          const { name = '', sub: id = '' } = getLocalProfile() || {};
+          // const { email = '' } = getLocalSession() || {};
+          const user = {
+            // email,
+            name,
+            id,
+          };
+
+          const netlifyFormValues = {
+            'form-name': netlifyFormName,
+            ...user,
+            ...sizes,
+          };
+
+          // console.log(netlifyFormValues);
+
+          fetch('/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            body: encodeFormData(netlifyFormValues),
+          })
+            .then(
+              () => {
+                alert('Thanks!');
+              },
+              error => {
+                console.error(
+                  `Unable to submit Netlify form: ${netlifyFormName}`,
+                  error
+                );
+              }
+            )
+            .then(() => {
+              setSubmitting(false);
+            });
         }}
       >
         {/* values,
@@ -95,7 +146,12 @@ const SizeForm = props => {
           isSubmitting,
           /* and other goodies */
         }) => (
-          <form onSubmit={handleSubmit}>
+          <form
+            onSubmit={handleSubmit}
+            name={netlifyFormName}
+            data-netlify="true"
+            netlify-honeypot="bot-field"
+          >
             <Heading level={2}>1. The Basics</Heading>
 
             <Unit

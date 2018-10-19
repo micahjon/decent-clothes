@@ -62,5 +62,5 @@ export {
   isValidSession,
   getLocalProfile,
   clearLocalProfile,
-  setLocalProfile
+  setLocalProfile,
 };

@@ -15,4 +15,15 @@ const conversions = {
   kg: lbs => round.kg(lbs / 2.20462),
 };
 
-export default conversions;
+const shirtSize = index => {
+  const baseSizes = ['XS', 'S', 'M', 'L', 'XL'];
+  const allSizes = [];
+  baseSizes.forEach((size, i) => {
+    allSizes.push(size);
+    if (baseSizes[i + 1]) allSizes.push(`${size}-${baseSizes[i + 1]}`);
+  });
+  // console.log(allSizes, index * 2);
+  return allSizes[index * 2];
+};
+
+export { conversions, shirtSize };

@@ -7,7 +7,7 @@ import {
   isValidSession,
   getLocalProfile,
   setLocalProfile,
-  clearLocalProfile
+  clearLocalProfile,
 } from './AuthLite';
 
 import { log, logError } from './logging';
@@ -47,7 +47,7 @@ const requestUserLogin = () => {
 //--
 
 const userSessionRequest = () => ({
-  type: 'USER_SESSION_REQUEST'
+  type: 'USER_SESSION_REQUEST',
 });
 
 const userSessionSuccess = (session, storeLocally = true) => {
@@ -56,21 +56,21 @@ const userSessionSuccess = (session, storeLocally = true) => {
   }
   return {
     type: 'USER_SESSION_SUCCESS',
-    session
+    session,
   };
 };
 
 const userSessionFailure = () => {
   clearLocalSession();
   return {
-    type: 'USER_SESSION_FAILURE'
+    type: 'USER_SESSION_FAILURE',
   };
 };
 
 //--
 
 const userProfileRequest = () => ({
-  type: 'USER_PROFILE_REQUEST'
+  type: 'USER_PROFILE_REQUEST',
 });
 
 const userProfileSuccess = (profile, storeLocally = true) => {
@@ -79,14 +79,14 @@ const userProfileSuccess = (profile, storeLocally = true) => {
   }
   return {
     type: 'USER_PROFILE_SUCCESS',
-    profile
+    profile,
   };
 };
 
 const userProfileFailure = () => {
   clearLocalProfile();
   return {
-    type: 'USER_PROFILE_FAILURE'
+    type: 'USER_PROFILE_FAILURE',
   };
 };
 
@@ -133,12 +133,16 @@ function getInitialUserSession() {
             removeHash();
 
             if (authResult && authResult.accessToken && authResult.idToken) {
+              // console.log(authResult);
+
+              // @todo -> read up on idTokenPayload
+
               const session = {
                 expiresAt: JSON.stringify(
                   authResult.expiresIn * 1000 + new Date().getTime()
                 ),
                 accessToken: authResult.accessToken,
-                idToken: authResult.idToken
+                idToken: authResult.idToken,
               };
 
               log('got Auth0 session');
@@ -178,7 +182,7 @@ function getInitialUserSession() {
                 logError('Unable to get profile from Auth0', {
                   error,
                   profile,
-                  accessToken
+                  accessToken,
                 });
                 dispatch(userProfileFailure());
                 // Ensure that this access token isn't used again if the user refreshes?
