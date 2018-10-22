@@ -35,6 +35,7 @@ class SizeField extends React.Component {
         label,
         value,
         getValidSize,
+        name,
         updateValue: this.updateValue.bind(this),
       });
     }

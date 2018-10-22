@@ -33,7 +33,7 @@ const SizeFieldHeight = ({ name, label, value, getValidSize, updateValue }) => {
             ft
           </label>
           <input
-            name={name + 'in'}
+            name={name + '_in'}
             value={inches}
             onChange={event => {
               const newInches = getValidSize(event.target.value);
@@ -51,7 +51,7 @@ const SizeFieldHeight = ({ name, label, value, getValidSize, updateValue }) => {
             type="number"
             style={{ width: '2rem', marginRight: '.25rem' }}
           />
-          <label htmlFor={name + 'in'} style={{ marginRight: '1.25rem' }}>
+          <label htmlFor={name + '_in'} style={{ marginRight: '1.25rem' }}>
             in
           </label>
         </Box>
