@@ -30,9 +30,11 @@ class SizeFieldShirt extends React.Component {
 
     return (
       <Box pad="small">
-        <label htmlFor="" style={{ lineHeight: '2rem' }}>
+        <label htmlFor={name} style={{ lineHeight: '2rem' }}>
           {label}
         </label>
+        {/* Hack for Netlify forms -- need to figure out how to do this accessibly */}
+        <input type="hidden" name={name} />
         <Slider
           min={0}
           max={5}

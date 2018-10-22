@@ -1,23 +1,22 @@
 import { Box } from 'grommet';
 import SizeField from './SizeField';
 
-const SizeFieldHeight = ({
-  label, value, getValidSize, updateValue,
-}) => {
+const SizeFieldHeight = ({ name, label, value, getValidSize, updateValue }) => {
   const feet = Math.floor(value.size / 12);
   const inches = value.size - feet * 12;
 
   return (
-    <Box>
-      <label>{label}</label>
+    <fieldset>
+      <legend>{label}</legend>
       {(value.unit === 'in' && (
         <Box direction="row">
           <input
+            name={name}
             value={feet}
-            onFocus={(event) => {
+            onFocus={event => {
               event.target.select();
             }}
-            onChange={(event) => {
+            onChange={event => {
               const newFeet = getValidSize(event.target.value);
               // console.log({ newFeet });
               switch (typeof newFeet) {
@@ -30,10 +29,13 @@ const SizeFieldHeight = ({
             type="number"
             style={{ width: '2rem', marginRight: '.25rem' }}
           />
-          <label style={{ marginRight: '1.25rem' }}>ft</label>
+          <label htmlFor={name} style={{ marginRight: '1.25rem' }}>
+            ft
+          </label>
           <input
+            name={name + 'in'}
             value={inches}
-            onChange={(event) => {
+            onChange={event => {
               const newInches = getValidSize(event.target.value);
               // console.log({ newInches });
               switch (typeof newInches) {
@@ -43,27 +45,34 @@ const SizeFieldHeight = ({
                   return updateValue(newInches, value.unit);
               }
             }}
-            onFocus={(event) => {
+            onFocus={event => {
               event.target.select();
             }}
             type="number"
             style={{ width: '2rem', marginRight: '.25rem' }}
           />
-          <label style={{ marginRight: '1.25rem' }}>in</label>
+          <label htmlFor={name + 'in'} style={{ marginRight: '1.25rem' }}>
+            in
+          </label>
         </Box>
       )) || (
-        <input
-          value={value.size}
-          onChange={(event) => {
-            const size = getValidSize(event.target.value);
-            if (typeof size !== 'undefined') {
-              updateValue(size);
-            }
-          }}
-          type="number"
-        />
+        <React.Fragment>
+          <input
+            name={name}
+            value={value.size}
+            onChange={event => {
+              const size = getValidSize(event.target.value);
+              if (typeof size !== 'undefined') {
+                updateValue(size);
+              }
+            }}
+            type="number"
+            style={{ marginRight: '.25rem' }}
+          />
+          <label htmlFor={name}>cm</label>
+        </React.Fragment>
       )}
-    </Box>
+    </fieldset>
   );
 };
 

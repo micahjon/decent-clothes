@@ -1,12 +1,14 @@
 import { RadioGroup, Radio } from 'react-radio-group';
 
-const Choice = (props) => {
-  const {
-    selectedValue, handleChange, style, options,
-  } = props;
+const Choice = props => {
+  const { selectedValue, handleChange, style, options } = props;
   return (
     <React.Fragment>
-      <RadioGroup selectedValue={selectedValue} onChange={handleChange} style={style}>
+      <RadioGroup
+        selectedValue={selectedValue}
+        onChange={handleChange}
+        style={style}
+      >
         {options.map((option, i) => (
           <label
             key={option}
