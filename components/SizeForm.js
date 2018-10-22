@@ -152,6 +152,10 @@ const SizeForm = props => {
             data-netlify="true"
             netlify-honeypot="bot-field"
           >
+            {/* Make Netlify aware of these form fields */}
+            <input type="hidden" name="name" />
+            <input type="hidden" name="id" />
+
             <Heading level={2}>1. The Basics</Heading>
 
             <Unit
