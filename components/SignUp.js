@@ -1,9 +1,13 @@
+import { connect } from 'react-redux';
 import { Box, Button, Heading, Paragraph } from 'grommet';
-
-const linkStyle = {};
+import { requestUserLogin } from '../services/actions';
 
 class SignUp extends React.Component {
   componentDidMount() {}
+
+  handleLogin() {
+    this.props.dispatch(requestUserLogin());
+  }
 
   render() {
     return (
@@ -15,7 +19,7 @@ class SignUp extends React.Component {
           Sign up below and we'll send you an invitation as soon as we start
           taking&nbsp;orders!
         </Paragraph>
-        <Button primary plain={false} onClick={() => console.log('to-do!')}>
+        <Button primary plain={false} onClick={this.handleLogin.bind(this)}>
           Request Invite
           <span> »</span>
         </Button>
@@ -33,4 +37,4 @@ class SignUp extends React.Component {
   }
 }
 
-export default SignUp;
+export default connect()(SignUp);

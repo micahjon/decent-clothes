@@ -1,20 +1,15 @@
 import { connect } from 'react-redux';
 import Router from 'next/router';
-import { login, logout, initialLoginFlow } from '../services/AuthLite';
 import { Box, Menu } from 'grommet';
 import { CaretDown } from 'grommet-icons';
 
 import {
   getInitialUserSession,
   requestUserLogin,
-  userLogout
+  userLogout,
 } from '../services/actions';
 
 const mapStateToProps = ({ user }) => ({ user });
-
-// const mapDispatchToProps = {
-//   loginAction,
-// };
 
 class AccountNavItem extends React.Component {
   componentDidMount() {
@@ -23,16 +18,10 @@ class AccountNavItem extends React.Component {
 
   handleLogout() {
     this.props.dispatch(userLogout());
-    // console.log('logout disabled...');
-    // logout(this.props.dispatch);
-    // this.setState({ isAuthenticated: false });
   }
 
   handleLogin() {
     this.props.dispatch(requestUserLogin());
-    // console.log('logout disabled...');
-    // logout(this.props.dispatch);
-    // this.setState({ isAuthenticated: false });
   }
 
   render() {
@@ -45,20 +34,20 @@ class AccountNavItem extends React.Component {
             items={[
               {
                 label: 'Take Measurements',
-                onClick: () => Router.push('/measurements')
+                onClick: () => Router.push('/measurements'),
               },
               { label: 'Place Order', onClick: () => Router.push('/order') },
-              { label: 'Log out', onClick: this.handleLogout.bind(this) }
+              { label: 'Log out', onClick: this.handleLogout.bind(this) },
             ]}
             dropAlign={{
               right: 'right',
-              top: 'bottom'
+              top: 'bottom',
             }}
           >
             <Box direction="row">
               <figure
                 style={{
-                  backgroundImage: `url(${this.props.user.profile.picture})`
+                  backgroundImage: `url(${this.props.user.profile.picture})`,
                 }}
               />
               <CaretDown

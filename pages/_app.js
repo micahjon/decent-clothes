@@ -4,6 +4,8 @@ import App, { Container } from 'next/app';
 import withRedux from 'next-redux-wrapper';
 import thunk from 'redux-thunk';
 import rootReducer from '../services/reducers';
+import Router from 'next/router';
+import withGA from 'next-ga';
 
 /**
  * @param {object} initialState
@@ -22,7 +24,9 @@ class MyApp extends App {
     return {
       pageProps: {
         // Call page-level getInitialProps
-        ...(Component.getInitialProps ? await Component.getInitialProps(ctx) : {}),
+        ...(Component.getInitialProps
+          ? await Component.getInitialProps(ctx)
+          : {}),
       },
     };
   }
@@ -39,4 +43,4 @@ class MyApp extends App {
   }
 }
 
-export default withRedux(makeStore)(MyApp); // { debug: true }
+export default withGA('UA-127966864-1', Router)(withRedux(makeStore)(MyApp)); // { debug: true }
