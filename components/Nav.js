@@ -10,8 +10,13 @@ const Nav = () => (
       <Link href="/">
         <a style={{ marginRight: 'auto' }}>
           <ReactSVG
-            src="/static/stacked-logo-1.svg"
-            svgStyle={{ height: '2rem', fill: 'currentColor' }}
+            className="logo"
+            src="/static/landscape-logo-1.svg"
+            svgStyle={{
+              height: '1rem',
+              fill: 'currentColor',
+              marginBottom: '3px',
+            }}
           />
         </a>
       </Link>
