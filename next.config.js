@@ -6,7 +6,7 @@ module.exports = withBundleAnalyzer(
   withCSS(
     withSass({
       // Definition for static pages in app
-      exportPathMap: function() {
+      exportPathMap: function () {
         return {
           '/': { page: '/' },
           // '/home-draft': { page: '/home-draft' },
@@ -17,6 +17,7 @@ module.exports = withBundleAnalyzer(
           // '/account': { page: '/account' },
           '/order': { page: '/order' },
           '/measurements': { page: '/measurements' },
+          '/checkout': { page: '/checkout' },
         };
       },
 

@@ -31,6 +31,7 @@
     "react-dom": "^16.5.2",
     "react-radio-group": "^3.0.3",
     "react-redux": "^5.0.7",
+    "react-stripe-checkout": "^2.6.3",
     "react-svg": "^6.0.18",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
